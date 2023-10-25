@@ -1,4 +1,6 @@
 obj-m += hello-1.o 
+
+EXTRA_CFLAGS := -I/usr/include
  
 PWD := $(CURDIR) 
  
