@@ -1,7 +1,7 @@
 #include "hip/hip_runtime.h"
 #include "primitives.h"
 
-int icclSend(void* sendbuff, size_t count, int peer, struct icclComm_t* comm){
+int icclSend(void* sendbuff, size_t count, icclDatatype_t datatype, int peer, struct icclComm_t* comm){
 
     int currentDevice;
     hipGetDevice(&currentDevice);
@@ -15,11 +15,12 @@ int icclSend(void* sendbuff, size_t count, int peer, struct icclComm_t* comm){
 
     comm->peer = peer;
     comm->count = count;
+    comm->datatype = datatype;
     return 0;
 
 }
 
-int icclRecv(void* recvbuff, size_t count, int peer, struct icclComm_t* comm){
+int icclRecv(void* recvbuff, size_t count, icclDatatype_t datatype, int peer, struct icclComm_t* comm){
     int currentDevice;
     hipGetDevice(&currentDevice);
 
@@ -28,6 +29,12 @@ int icclRecv(void* recvbuff, size_t count, int peer, struct icclComm_t* comm){
     }
 
     if (count != comm->count) {
+        printf("ERROR: data buffers do not have matching sizes\n");
+        return 1;
+    }
+
+    if (datatype != comm->datatype) {
+        printf("ERROR: datatypes do not match\n");
         return 1;
     }
 

@@ -21,8 +21,8 @@ int main(){
     size_t countsrc = sizeof(sourceData);
     size_t countdest = sizeof(destData);
 
-    icclSend(sourceData, countsrc, 0, &comm);
-    icclRecv(&destData, countdest, 1, &comm);
+    icclSend(sourceData, countsrc, icclInt, 0, &comm);
+    icclRecv(&destData, countdest, icclInt, 1, &comm);
 
     printf("\n DEST DATA \n", destData);
     for (int i = 0; i < 5; i++) {
