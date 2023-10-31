@@ -4,7 +4,7 @@ CFLAGS = -Wall -D__HIP_PLATFORM_AMD__
 SOURCES = primitives.c test-send-recv.c
 OBJECTS = $(SOURCES:.c=.o)
 SRC_DIR = source
-EXECUTABLE = icclmake
+EXECUTABLE = iccltest
 INCLUDE_DIR = include
 BUILD_DIR = build
 
