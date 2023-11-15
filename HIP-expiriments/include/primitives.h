@@ -35,3 +35,15 @@ int icclSend(void* sendbuff, size_t count, icclDatatype_t datatype, int peer, st
 int icclRecv(void* recvbuff, size_t count, icclDatatype_t datatype, int peer, struct icclComm_t* comm);
 
 int icclReduce(void* sendbuff, void* recvbuff, size_t count, icclDatatype_t datatype, icclRedOp_t op, int root, struct icclComm_t* comm);
+
+int icclRecvReduceSend(void* sendbuff, void* recvbuff, size_t count, icclDatatype_t datatype, icclRedOp_t op, int root, struct icclComm_t* comm);
+
+int icclRecvReduceCopy(void* sendbuff, void* recvbuff, size_t count, icclDatatype_t datatype, icclRedOp_t op, int root, struct icclComm_t* comm);
+
+int icclCopySend(void* sendbuff, size_t count, icclDatatype_t datatype, int peer, struct icclComm_t* comm);
+
+int icclRecvCopySend(void* sendbuff, void* recvbuff, size_t count, icclDatatype_t datatype, icclRedOp_t op, int root, struct icclComm_t* comm);
+
+int icclRecvReduceCopySend(void* sendbuff, void* recvbuff, size_t count, icclDatatype_t datatype, icclRedOp_t op, int root, struct icclComm_t* comm);
+
+

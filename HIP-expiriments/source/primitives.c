@@ -84,6 +84,14 @@ int icclReduce(void* sendbuff, void* recvbuff, size_t count, icclDatatype_t data
 
 }
 
+int icclRecvReduceSend(void* sendbuff, void* recvbuff, size_t count, icclDatatype_t datatype, icclRedOp_t op, int root, struct icclComm_t* comm) {
+    //TODO: add tests
+    icclRecv(&recvbuff, count, datatype, root, &comm);
+    int recvbuff2[1];
+    icclReduce(recvbuff, recvbuff2, count, datatype, op, root, &comm);
+    return 0;
+}
+
 int icclDummy(void* inbuffer, void* outbuffer, size_t count){
     return 0;
 }

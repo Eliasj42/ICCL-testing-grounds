@@ -31,19 +31,19 @@ int main(){
     }
 
     icclReduce(sourceData, &destData2, 5, icclInt, icclMax, 1, &comm);
-    printf("\n REDUCE DATA \n", destData);
+    printf("\n REDUCE DATA MAX\n", destData);
     printf("%d\n", destData2[0]);
 
     icclReduce(sourceData, &destData2, 5, icclInt, icclMin, 1, &comm);
-    printf("\n REDUCE DATA \n", destData);
+    printf("\n REDUCE DATA MIN\n", destData);
     printf("%d\n", destData2[0]);
 
     icclReduce(sourceData, &destData2, 5, icclInt, icclAdd, 1, &comm);
-    printf("\n REDUCE DATA \n", destData);
+    printf("\n REDUCE DATA ADD\n", destData);
     printf("%d\n", destData2[0]);
 
     icclReduce(sourceData, &destData2, 5, icclInt, icclProd, 1, &comm);
-    printf("\n REDUCE DATA \n", destData);
+    printf("\n REDUCE DATA PROD\n", destData);
     printf("%d\n", destData2[0]);
 
     hipFree(sourceData);
