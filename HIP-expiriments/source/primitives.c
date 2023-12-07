@@ -1,5 +1,6 @@
 #include "hip/hip_runtime.h"
 #include "primitives.h"
+#include <string.h>
 
 int icclSend(void* sendbuff, size_t count, icclDatatype_t datatype, int peer, struct icclComm_t* comm){
 
@@ -89,7 +90,43 @@ int icclRecvReduceSend(void* sendbuff, void* recvbuff, size_t count, icclDatatyp
     icclRecv(&recvbuff, count, datatype, root, &comm);
     int recvbuff2[1];
     icclReduce(recvbuff, recvbuff2, count, datatype, op, root, &comm);
+    icclSend(recvbuff, count, datatype, root, comm);
     return 0;
+}
+
+int icclRecvReduceCopy(void* sendbuff, void* recvbuff, size_t count, icclDatatype_t datatype, icclRedOp_t op, int root, struct icclComm_t* comm) {
+    //TODO: add tests
+    icclRecv(&recvbuff, count, datatype, root, &comm);
+    int recvbuff2[1];
+    icclReduce(recvbuff, recvbuff2, count, datatype, op, root, &comm);
+    return 0;
+}
+
+int icclCopySend(void* sendbuff, size_t count, icclDatatype_t datatype, int peer, struct icclComm_t* comm) {
+    void* copybuff;
+    memcpy(sendbuff, copybuff, count);
+    icclSend(copybuff, count, datatype, peer, comm);
+    return 0;
+}
+
+int icclRecvCopySend(void* sendbuff, void* recvbuff, size_t count, icclDatatype_t datatype, icclRedOp_t op, int root, struct icclComm_t* comm) {
+    icclRecv(&recvbuff, count, datatype, root, &comm);
+    void* copybuff;
+    memcpy(recvbuff, copybuff, count);
+    icclSend(copybuff, count, datatype, root, comm);
+    return 0;
+
+}
+
+int icclRecvReduceCopySend(void* sendbuff, void* recvbuff, size_t count, icclDatatype_t datatype, icclRedOp_t op, int root, struct icclComm_t* comm) {
+    icclRecv(&recvbuff, count, datatype, root, &comm);
+    int recvbuff2[1];
+    icclReduce(recvbuff, recvbuff2, count, datatype, op, root, &comm);
+    void* copybuff;
+    memcpy(recvbuff2, copybuff, count);
+    icclSend(copybuff, count, datatype, root, comm);
+    return 0;
+
 }
 
 int icclDummy(void* inbuffer, void* outbuffer, size_t count){
